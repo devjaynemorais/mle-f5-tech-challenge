@@ -1,0 +1,16 @@
+[project]
+name = "mle-f5-tech-challenge"
+version = "0.1.0"
+description = "Copilot de Suporte: triagem, RAG com guardrails e observabilidade (FIAP MLE Fase 5)"
+requires-python = ">=3.11,<3.13"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"

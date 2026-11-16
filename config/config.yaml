@@ -1,0 +1,35 @@
+# Configuração do experimento (sem segredos; esses ficam no .env).
+paths:
+  raw_data: data/raw/tickets.csv     # TODO: depende do dataset escolhido
+  processed_dir: data/processed
+  model: models/artifacts/ticket_classifier.joblib
+  manuals_dir: data/manuals
+  reports_dir: reports
+
+classifier:
+  text_column: text          # TODO: ajustar ao dataset escolhido
+  target_column: category    # TODO: ajustar ao dataset escolhido
+  test_size: 0.2
+  seed: 42
+
+mlflow:
+  experiment_name: ticket-triage
+
+validation:
+  min_text_length: 1
+  max_text_length: 1000      # enunciado: texto não pode ser vazio nem > 1000 chars
+
+rag:
+  chunk_size: 800
+  chunk_overlap: 100
+  top_k: 4
+  vectorstore: faiss         # faiss | chroma
+  llm_provider_env: LLM_PROVIDER
+
+guardrails:
+  blocked_terms: []          # TODO: lista de palavras proibidas
+  injection_patterns:        # tentativas de fazer a IA ignorar o PDF
+    - "ignore (all |the )?(previous|above) instructions"
+    - "ignore o (pdf|manual)"
+    - "esqueça (as )?instruções"
+  refusal_message: "Não posso responder a essa solicitação."
